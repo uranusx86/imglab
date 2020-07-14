@@ -93,6 +93,10 @@
 		<div class="d-flex flex-row" style="height: calc(100vh - 50px);">
 			<div id="toolbar" class="d-flex flex-column overlay-color grey-border">
 				<toolbox tools="labelling"></toolbox>
+				<div style="text-align: center;">
+					<label>page id</label>
+					<input type="text" name="page_id" style="width: 50px; text-align: center; font-weight: 600;" onchange="goto_page()">
+				</div>
 				<toolbox class="mt-auto toolbox-border-top" tools="canvas"></toolbox>
 			</div>
 			<div class="d-flex flex-column base-color" style="width: 100vw">
@@ -152,7 +156,18 @@
 
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip();
-		})
+		});
+
+		function show_page(cnt) {
+			$("input[name='page_id']").val(cnt);
+		}
+
+		function goto_page(){
+			idx = $("input[name='page_id']").val();
+			if (idx >= 0) {
+				$("#thumbnail_" + idx).click();
+			}
+		}
 	</script>
 	<script src="js/settings.js"></script>
 	<script src="js/thirdparty/svg.min.js"></script>

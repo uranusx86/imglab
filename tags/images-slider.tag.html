@@ -4,7 +4,11 @@
             display: none;
         }
     </style>
-    <div style="width: 50px;  text-align: center; padding: 10px;">
+    <div style="width: 70px; text-align: center; padding: 10px;">
+        <!--label class="btn-bs-file">
+            <input type="text" style="width: 100%; font-size: 16px; text-align: center; font-weight: 600;">
+        </label-->
+
         <label class="btn-bs-file">
             <i class="icon-picture" style="font-size: 1.5em"></i>
             <input id="browseImages" type="file" class="filebutton" accept="image/*" onchange={ readImageFiles }
@@ -173,6 +177,13 @@
         }
 
         function loadIntoWorkArea(e) {
+            console.log("mannual click");
+            console.log(e.item.index);
+            console.log("but now index is");
+            console.log(tag.currentIndex);
+            // disable selected
+            $("img.imgbox-select").toggleClass("imgbox-select");
+
             imgSelected = tag.thumbnails[e.item.index];
 
             let preZoom = localStorage.getItem("zoom");
@@ -186,6 +197,12 @@
 
             $("#zoom-scale").val(Math.round(imgSelected.size.imageScale * 100) + '%');
             riot.mount("workarea", { img: imgSelected });
+
+            // fix the next image using ALT + -> is not as same as mannual click, sync index
+            tag.currentIndex = e.item.index;
+            $("#thumbnail_" + tag.currentIndex).toggleClass("imgbox-select");
+
+            show_page(tag.currentIndex);
         }
     </script>
 </images-slider>
