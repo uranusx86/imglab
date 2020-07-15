@@ -163,9 +163,34 @@
 		}
 
 		function goto_page(){
-			idx = $("input[name='page_id']").val();
+			var idx = $("input[name='page_id']").val();
+			var gallery_cnt = Math.floor($("#photolist").width() / 94);
+			console.log("gallery_cnt "+gallery_cnt);
+
 			if (idx >= 0) {
 				$("#thumbnail_" + idx).click();
+
+				var first_id = $("#photolist > img:first-child").attr("id").split("_")[1];
+				var photolist = $("#photolist");
+				if (parseInt(idx) < parseInt(first_id)){
+					// left sliding
+					var residual = parseInt(first_id) - parseInt(idx);
+					for (var i = 0; i < residual; i++) {
+						photolist.css({ left: "-80px" })
+			                    .prepend(photolist.children('img:last-child'))
+			                    .animate({ left: 0 }, 10, 'linear');
+					}
+				}
+				else if (parseInt(idx) > parseInt(first_id) + gallery_cnt - 1){
+					// right sliding
+					var residual = parseInt(idx) - (parseInt(first_id) + gallery_cnt - 1);
+					for (var i = 0; i < residual; i++) {
+						photolist.animate({ left: "-80px" }, 10, 'linear', () => {
+			                    photolist.css({ left: 0 })
+			                        .append(photolist.children('img:first-child'));
+			                });
+					}
+				}
 			}
 		}
 	</script>

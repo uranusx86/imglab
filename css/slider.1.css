@@ -50,6 +50,11 @@
     opacity: 1.0;
     transition: .5s ease;
 }
+.imgbox-select {
+    opacity: 1.0 !important;
+    border: 1px solid #ea6b15 !important;
+    background: #ea6b15 !important;
+}
 
 .delete {
     background: url("../img/delete.svg") no-repeat;

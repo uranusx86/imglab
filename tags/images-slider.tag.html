@@ -65,12 +65,23 @@
             document.addEventListener('keydown', e => {
 
                 if (e.key == 'ArrowLeft' && e.altKey) {
-                    if (tag.currentIndex > 0) $("#thumbnail_" + --tag.currentIndex).click();
+                    if (tag.currentIndex > 0){
+                        $("#thumbnail_" + --tag.currentIndex).click();
+                        var first_id = $("#photolist > img:first-child").attr("id").split("_")[1];
+                        if (tag.currentIndex < parseInt(first_id))
+                            $("#leftpaddle").click();
+                    }
                     e.preventDefault();
                     e.stopPropagation();
                 }
                 if (e.key == 'ArrowRight' && e.altKey) {
-                    if (tag.currentIndex < tag.thumbnails.length - 1) $("#thumbnail_" + ++tag.currentIndex).click();
+                    if (tag.currentIndex < tag.thumbnails.length - 1){
+                        $("#thumbnail_" + ++tag.currentIndex).click();
+                        var first_id = $("#photolist > img:first-child").attr("id").split("_")[1];
+                        var gallery_cnt = Math.floor($("#photolist").width() / 94);
+                        if (tag.currentIndex > parseInt(first_id) + gallery_cnt - 1)
+                            $("#rightpaddle").click();
+                    }
                     e.preventDefault();
                     e.stopPropagation();
                 }
